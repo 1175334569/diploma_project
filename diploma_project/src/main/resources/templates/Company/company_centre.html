@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>高校兼职平台</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/myCss.css">
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+    <div style="width: 130px"></div>
+    <a class="navbar-brand" href="/">
+        <img src="/img/2.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        高校兼职
+    </a>
+    <div style="width: 30px"></div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li id="li1" style="display:none">
+                <div><i class="fas fa-user-tie"></i></div>
+            </li>
+            <li class="nav-item dropdown" id="li2" style="display: none">
+                <a class="nav-link dropdown-toggle" href="#" id="User" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                </a>
+                <div class="dropdown-menu" aria-labelledby="User">
+                    <a class="dropdown-item"  href="/set_company">个人中心</a>
+                    <a class="dropdown-item"  href="/user_set" >帐号设置</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">退出</a>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+<br>
+<br>
+<div id="bodycontent">
+    <div class="ct-holder account wrap">
+        <div class="setting-top">
+
+           <ul>
+        <li class="current" id="recruit_issue"><a href="/set_company" title="招聘发布">招聘发布</a></li>
+        <li class=""  onclick="myrecruit()" id="myrecruit"><a href="#" title="我的招聘">我的招聘</a></li>
+           </ul>
+       </div>
+
+
+        <div class="main clearfix" id="centre">
+            <div class="left" style="float: left">
+                <div class="group">
+                    <p class="leftsign">标题：</p>
+                    <p><input type="text" class="mytxt" placeholder="请填写标题" id="recruit_title"></p>
+                </div>
+
+
+                <div class="group">
+                    <p class="leftsign">性别：</p>
+                    <select id="recruit_sex"  onclick="" style="width:190px">
+                        <option value="-1" style="background-color: #cccccc">男女无限</option>
+                        <option value="-1" style="background-color: #cccccc">男</option>
+                        <option value="-1" style="background-color: #cccccc">女</option>
+                    </select>
+                </div>
+
+                <div class="group">
+                    <p class="leftsign">工作地点：</p>
+                    <p><input type="text" id="recruit_location" class="mytxt" placeholder="请填写工作地点"></p>
+                </div>
+
+                <div class="group">
+                    <p class="leftsign">工作时间：</p>
+                    <p><input type="text" class="mytxt" id="work_time" placeholder="请填写工作时间"></p>
+                </div>
+            </div>
+
+
+
+            <div class="right" style="float: right">
+                <div class="group">
+                    <p class="leftsign">招聘人数：</p>
+                    <p><input type="text" class="mytxt" id="recruit_num" placeholder="请填写人数">人</p>
+                </div>
+                <div class="group">
+                    <p class="leftsign">薪资：</p>
+                    <p><input type="text" class="mytxt" id="recruit_salary" placeholder="请填写薪资">（例：100/天，50/小时）</p>
+                </div>
+
+                <div class="group">
+                    <p class="leftsign">招聘范围：</p>
+                    <p>
+                        <select id="citySelect" onclick="selectSchool()">
+                            <option value="-1" style="background-color: #cccccc">无</option>
+                        </select>
+                        <span>
+                                                       <select id="schoolSelect">
+                                               <option value ="volvo" style="background-color: #cccccc">无</option>
+                                                       </select>
+                                                  </span>
+                    </p>
+                </div>
+
+                <div class="group" id="sign">
+                    <p class="leftsign">工作要求：</p>
+                    <p> <textarea name="title" id="recruit_content" placeholder="请填写你的要求" style="width: 400px;height: 100px"></textarea> </p>
+                </div>
+            </div>
+
+        </div>
+            <div>
+        <button class="btn btn-success" id="summit_button" style="position: absolute;left: 40%" onclick="summit()">提交</button>
+            </div>
+    </div>
+</div>
+
+<script src="/jquery-3.0.0.js"></script>
+<script src="/myJS.js"></script>
+<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+<script>
+    $(function () {
+        if(getCookie("username")!=""){
+            document.getElementById("li1").style.display="";
+            document.getElementById("li2").style.display="";
+        }
+        else {
+            document.getElementById("li1").style.display="none";
+            document.getElementById("li2").style.display="none";
+        }
+        document.getElementById("User").innerText=getCookie("username");
+
+
+        $.ajax({
+            url:"selectCity",
+            success:function (data) {
+                for(var i=0;i<data.length;i++){
+                    $("#citySelect").append(" <option value="+data[i].id+">"+data[i].city+"</option>")
+                }
+            },
+            error:function () {
+                alert("失败")
+            }
+        });
+    });
+    function selectSchool() {
+        var cid=$("#citySelect").val();
+        if(cid!=-1){
+            var School=document.getElementById("schoolSelect");
+            School.innerText="";
+            $("#schoolSelect").append(" <option value =\"volvo\" style=\"background-color: #cccccc\">无</option>");
+
+            $.ajax({
+                url:"selectSchool",
+                data:{
+                    cid:cid,
+                },
+                success:function (data) {
+                    for(var i=0;i<data.length;i++){
+                        $("#schoolSelect").append(" <option >"+data[i]+"</option>")
+                    }
+                },
+                error:function (data) {
+                    alert("失败");
+                }
+            });
+        }
+    }
+
+    
+    function summit() {
+        var recruit_title=$("#recruit_title").val();
+        var recruit_sex=$('#recruit_sex option:selected').text();
+        var recruit_location=$("#recruit_location").val();
+        var work_time=$("#work_time").val();
+        var recruit_num=$("#recruit_num").val();
+        var recruit_salary=$("#recruit_salary").val();
+        var citySelect=$('#citySelect option:selected').text();
+        var schoolSelect=$('#schoolSelect option:selected').text();
+        var recruit_content=$("#recruit_content").val();
+        $.ajax({
+            url:"recruit_summit_OK",
+            data:{
+                title:recruit_title,
+                re_sex:recruit_sex,
+                location:recruit_location,
+                work_time:work_time,
+                num:recruit_num,
+                salary:recruit_salary,
+                city:citySelect,
+                school:schoolSelect,
+                content:recruit_content
+            },
+            success:function (data) {
+                alert("提交成功");
+            }
+        })
+    }
+
+    function myrecruit() {
+         var uid=getCookie("id");
+        document.getElementById("centre").innerText="";
+        document.getElementById("myrecruit").className="current";
+        document.getElementById("recruit_issue").className="";
+        document.getElementById("summit_button").style.display="none";
+        var timenow=new Date();
+        $.ajax({
+               url:"select_recruitByUid",
+               data:{
+                 uid:uid
+               },
+               success:function (data) {
+                   for(var i=0;i<data.length;i++){
+                       var creattime=Date.parse(data[i].creat_time);
+                       var day=Math.floor((timenow-creattime)/(24 * 3600 * 1000));
+                       $("#centre").append("    <br>\n" +
+                           "    <a href=\"select_recruitById_person?id="+data[i].id+"\" class=\"list-group-item list-group-item-action flex-column align-items-start\">\n" +
+                           "      <div class=\"d-flex w-100 justify-content-between\">\n" +
+                           "        <h5 class=\"mb-1\">"+data[i].title+"</h5>\n" +
+                           "<br/>\n"+
+                           "        <small class=\"text-muted\"><span style='color: red'>"+day+"</span>天前</small>\n" +
+                           "      </div>\n" +
+                           "      <p class=\"mb-1\"><span style='margin: 0 200px 0 0'>工作地点："+data[i].location+"</span>工作时间："+data[i].work_time+"</p>\n" +
+                           "      <p class=\"mb-1\"><span style='margin: 0 200px 0 0'>招聘人数："+data[i].num+"人</span>薪资："+data[i].salary+"</p>\n" +
+                           "    </a>")
+                   }
+               }
+        });
+
+    }
+
+</script>
+</html>

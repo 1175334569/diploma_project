@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>111</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/myCss.css">
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+    <div style="width: 130px"></div>
+    <a class="navbar-brand" href="/">
+        <img src="/img/2.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        高校兼职
+    </a>
+    <div style="width: 30px"></div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li id="li1" style="display:none">
+                <div><i class="fas fa-user-tie"></i></div>
+            </li>
+            <li class="nav-item dropdown" id="li2" style="display: none">
+                <a class="nav-link dropdown-toggle" href="#" id="User" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                </a>
+                <div class="dropdown-menu" aria-labelledby="User">
+                    <a class="dropdown-item"  href="/set_company">个人中心</a>
+                    <a class="dropdown-item"  href="/user_set" >帐号设置</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">退出</a>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+<br>
+<br>
+
+<div id="bodycontent">
+    <div class="ct-holder account wrap">
+        <div class="setting-top">
+
+           <ul>
+        <li class="current" id="set_basic"><a href="/user_set" title="基本信息">基本信息</a></li>
+        <li class=""  onclick="on()" id="set_password"><a href="#" title="修改密码">修改密码</a></li>
+           </ul>
+       </div>
+
+
+        <div class="main clearfix">
+            <div class="right">
+
+                                <div class="form" id="select_ba_pa">
+                                    <div class="group">
+                                        <p class="leftsign">用户名：</p>
+                                        <p>
+                                        <p><input type="text" class="mytxt" id="set_username" th:value="${user.username}">
+                                    </div>
+
+                                    <div class="group">
+                                        <p class="leftsign">性别：</p>
+                                        <p class="psex">
+                                            <label >
+                                                <input name="sex" id="man_label" type="radio" value="男" >
+                                                <span>男</span>
+                                            </label>
+
+                                            <label>
+                                                <input name="sex" id="female_label" type="radio" value="女" >
+                                                <span>女</span>
+                                            </label>
+                                        </p>
+                                    </div>
+
+                                    <div class="group">
+                                        <p class="leftsign">邮箱：</p>
+                                        <p><input type="text" class="mytxt" id="set_email" readonly="readonly" style="background-color: #F0F0F0" th:value="${user.email}"></p>
+                                    </div>
+
+                                    <div class="group">
+                                        <p class="leftsign">手机：</p>
+                                        <p>
+                                        <p><input type="text" class="mytxt" id="set_phone" th:value="${user.phone}">
+                                    </div>
+
+                                    <div class="group">
+                                        <p class="leftsign">地址：</p>
+                                        <p>
+                                            <select id="citySelect" onclick="selectSchool()">
+                                                <option value="-1" style="background-color: #cccccc" th:text="${user.city}"></option>
+                                            </select>
+                                                  <span>
+                                                       <select id="schoolSelect">
+                                               <option value ="volvo" style="background-color: #cccccc" th:text="${user.school}"></option>
+                                                       </select>
+                                                  </span>
+                                        </p>
+                                    </div>
+
+                                    <div class="group">
+                                        <p class="leftsign">专业：</p>
+                                        <p><input type="text" class="mytxt" placeholder="请填写专业" id="set_specialty" th:value="${user.specialty}"></p>
+                                    </div>
+
+                                    <div class="group" id="sign">
+                                        <p class="leftsign">技能：</p>
+                                        <p> <textarea name="title" placeholder="请填写你的专业技能" id="set_skill" th:text="${user.skill}"></textarea> </p>
+                                    </div>
+
+                                    <div class="group">
+                                        <button value="提交" onclick="basic_summit()" class="btn btn-success">提交</button>
+                                    </div>
+                                </div>
+            </div>
+            <span>
+                <div class="right" style=" width:370px;height:400px">
+                    <img style="width: 370px;height: 310px" src="/img/1.jpg">
+                </div>
+            </span>
+        </div>
+    </div>
+</div>
+
+<input id="get_sex" th:value="${user.sex}" style="display: none">
+<script src="/jquery-3.0.0.js"></script>
+<script src="/myJS.js"></script>
+<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+<script>
+
+
+
+    $(function () {
+        if(getCookie("username")!=""){
+            document.getElementById("li1").style.display="";
+            document.getElementById("li2").style.display="";
+        }
+        else {
+            document.getElementById("li1").style.display="none";
+            document.getElementById("li2").style.display="none";
+        }
+        document.getElementById("User").innerText=getCookie("username");
+
+        var sex=$("#get_sex").val();
+        if(sex=='男')    $("#man_label").attr("checked",true);
+        if(sex=='女')    $("#female_label").attr("checked",true);
+        $.ajax({
+            url:"selectCity",
+            success:function (data) {
+                for(var i=0;i<data.length;i++){
+                    $("#citySelect").append(" <option value="+data[i].id+">"+data[i].city+"</option>")
+                }
+            },
+            error:function () {
+                alert("失败")
+            }
+        });
+    });
+    function selectSchool() {
+        var cid=$("#citySelect").val();
+        if(cid!=-1){
+            var School=document.getElementById("schoolSelect");
+            School.innerText="";
+
+            $.ajax({
+                url:"selectSchool",
+                data:{
+                    cid:cid,
+                },
+                success:function (data) {
+                    for(var i=0;i<data.length;i++){
+                        $("#schoolSelect").append(" <option >"+data[i]+"</option>")
+                    }
+                },
+                error:function (data) {
+                    alert("失败");
+                }
+            });
+        }
+    }
+
+    function basic_summit() {
+        var username=$("#set_username").val();
+        var sex=$("input[type=radio]:checked").val();
+        var email=$("#set_email").val();
+        var phone=$("#set_phone").val();
+        var city=$('#citySelect option:selected').text();
+        var school=$('#schoolSelect option:selected').text();
+        var specialty=$("#set_specialty").val();
+        var skill=$("#set_skill").val();
+        $.ajax({
+            url:"update_user",
+            data:{
+                username:username,
+                sex:sex,
+                email:email,
+                phone:phone,
+                city:city,
+                school:school,
+                specialty:specialty,
+                skill:skill
+            },
+            success:function (data) {
+                alert("修改成功");
+                location.reload();
+            }
+        });
+    }
+    function on() {
+        document.getElementById("set_password").className="current";
+        document.getElementById("set_basic").className="";
+        document.getElementById("select_ba_pa").innerText="";
+        $("#select_ba_pa").append("<div class=\"group\">\n" +
+            "                        <p class=\"leftsign\">新密码：</p>\n" +
+            "                        <p>\n" +
+            "                            <input type=\"password\" name=\"password\" class=\"inputtext\" id=\"newpassword1\">\n" +
+            "                        </p>\n" +
+            "                    </div>\n" +
+            "                    <div class=\"group\">\n" +
+            "                        <p class=\"leftsign\">确认密码：</p>\n" +
+            "                        <p>\n" +
+            "                            <input type=\"password\" name=\"confirm_password\" class=\"inputtext\" id=\"renewpassword1\">\n" +
+            "                        </p>\n" +
+            "                    </div>\n" +
+            "                    <button type=\"button\" onclick='userset_resetpassword()' class=\"btn btn-success\">确定修改密码</button>")
+    }
+    function userset_resetpassword() {
+        var newpassword1=$("#newpassword1").val();
+        var renewpassword1=$("#renewpassword1").val();
+        if(newpassword1!=renewpassword1){
+            alert("密码不一致");
+        }
+        else{
+            $.ajax({
+                url:"reset_passwordById",
+                data:{
+                    newpassword:newpassword1
+                },
+                success:function (data) {
+                    alert("密码已修改");
+                }
+            })
+        }
+    }
+
+    function isPasswd(s)
+     {
+        var patrn=/^(\w){6,20}$/;
+          if(!patrn.exec(s)){
+              return false;
+          }
+          else return false;
+       }
+</script>
+</html>

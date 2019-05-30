@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>111</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/myCss.css">
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+    <div style="width: 130px"></div>
+    <a class="navbar-brand" href="/">
+        <img src="/img/2.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        高校兼职
+    </a>
+    <div style="width: 30px"></div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li id="li1" style="display:none">
+                <div><i class="fas fa-user-tie"></i></div>
+            </li>
+            <li class="nav-item dropdown" id="li2" style="display: none">
+                <a class="nav-link dropdown-toggle" href="#" id="User" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                </a>
+                <div class="dropdown-menu" aria-labelledby="User">
+                    <a class="dropdown-item"  href="/set_company">个人中心</a>
+                    <a class="dropdown-item"  href="/user_set" >帐号设置</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">退出</a>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+<br>
+<br>
+<div id="bodycontent">
+    <div class="ct-holder account wrap">
+        <div class="setting-top">
+
+           <ul>
+        <li class="current" id="my_apply"><a href="#" title="我的申请">我的申请</a></li>
+      <!--  <li class=""  onclick="on()" id="set_password"><a href="#" title="修改密码">修改密码</a></li>-->
+           </ul>
+       </div>
+        <div id="User_apply"></div>
+
+    </div>
+</div>
+<script src="/jquery-3.0.0.js"></script>
+<script src="/myJS.js"></script>
+<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+<script>
+$(function () {
+
+    if(getCookie("username")!=""){
+        document.getElementById("li1").style.display="";
+        document.getElementById("li2").style.display="";
+    }
+    else {
+        document.getElementById("li1").style.display="none";
+        document.getElementById("li2").style.display="none";
+    }
+    document.getElementById("User").innerText=getCookie("username");
+
+    var id=getCookie("id");
+    var timenow=new Date();
+    $.ajax({
+        url:"user_apply",
+        data:{
+            id:id
+        },
+        success:function (data) {
+
+            for(var i=0;i<data.length;i++){
+                $("#User_apply").append("    <br>\n" +
+                    "    <a href=\"select_recruitById?id="+data[i].id+"\" class=\"list-group-item list-group-item-action flex-column align-items-start\">\n" +
+                    "      <div class=\"d-flex w-100 justify-content-between\">\n" +
+                    "        <h5 class=\"mb-1\">"+data[i].title+"</h5>\n" +
+                    "<br/>\n"+
+                    "      </div>\n" +
+                    "      <p class=\"mb-1\"><span style='margin: 0 200px 0 0'>工作地点："+data[i].location+"</span>工作时间："+data[i].work_time+"</p>\n" +
+                    "      <p class=\"mb-1\"><span style='margin: 0 200px 0 0'>招聘人数："+data[i].num+"人</span>薪资："+data[i].salary+"</p>\n" +
+                    "    </a>")
+            }
+        }
+    })
+})
+
+</script>
+</html>

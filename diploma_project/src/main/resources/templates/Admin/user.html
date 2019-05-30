@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/amazeui.min.css" />
+		<link rel="stylesheet" href="css/admin.css" />
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+		<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+
+	<body>
+		<div class="admin-content-body">
+			<div class="am-cf am-padding am-padding-bottom-0">
+				<div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">用户信息管理</strong><small></small></div>
+			</div>
+
+			<hr>
+
+			<div class="am-g">
+				<div class="am-u-sm-12 am-u-md-6">
+					<div class="am-btn-toolbar">
+						<div class="am-btn-group am-btn-group-xs">
+							<button type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</button>
+						</div>
+					</div>
+				</div>
+				<div class="am-u-sm-12 am-u-md-3">
+
+				</div>
+				<div class="am-u-sm-12 am-u-md-3">
+					<div class="am-input-group am-input-group-sm">
+						<input type="text" class="am-form-field">
+						<span class="am-input-group-btn">
+            <button class="am-btn am-btn-default" type="button">搜索</button>
+          </span>
+					</div>
+				</div>
+			</div>
+			<div class="am-g">
+				<div class="am-u-sm-12">
+					<form class="am-form">
+						<table class="am-table am-table-striped am-table-hover table-main">
+							<thead>
+								<tr>
+									<th class="table-check"><input type="checkbox"></th>
+									<th class="table-id">ID</th>
+									<th class="table-title">用户名</th>
+									<th class="table-type">邮箱</th>
+									<th class="table-author am-hide-sm-only">性别</th>
+									<th class="table-set">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="user:${Users}">
+									<td><input type="checkbox"></td>
+									<td th:text="${user.id}">1</td>
+									<td>
+										<a th:text="${user.username}" th:href="@{'/Admin?id='+${user.id}}">test1</a>
+									</td>
+									<td th:text="${user.email}">123456789@qq.com</td>
+									<td th:text="${user.sex}" class="am-hide-sm-only">男</td>
+									<td >
+										<div class="am-btn-toolbar">
+											<div class="am-btn-group am-btn-group-xs">
+												<button  data-toggle="modal" data-target="#myModal" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
+												<button th:onclick="'javascript:UserDelect('+${user.id}+')'"  class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
+											</div>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<div class="row">
+							<div class="col-md-6 col-md-offset-10">
+								<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog modal-lg">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+												<h4 class="modal-title" id="myModalLabel">添加</h4>
+											</div>
+												<div class="modal-body">
+													<div class="form-group">
+														<label  class="col-sm-3 control-label">账号：</label>
+
+															<input type="text" class="form-control" id="scoutaccount" name="scoutaccount" placeholder="请输入账号">
+
+													</div>
+													<div class="form-group">
+														<label  class="col-sm-3 control-label">名字：</label>
+
+															<input type="text" class="form-control"  name="scoutname" placeholder="请输入名字" >
+
+													</div>
+
+													<div class="form-group">
+														<label  class="col-sm-3 control-label">名字：</label>
+
+														<input type="text" class="form-control"  name="scoutname" placeholder="请输入名字" >
+
+													</div>
+
+													<div class="form-group">
+														<label  class="col-sm-3 control-label">名字：</label>
+
+														<input type="text" class="form-control"  name="scoutname" placeholder="请输入名字">
+
+													</div>
+
+													<div class="form-group">
+														<label  class="col-sm-3 control-label">名字：</label>
+
+														<input type="text" class="form-control"  name="scoutname" placeholder="请输入名字" >
+
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+													<button type="submit" class="btn btn-primary" id="save">保存</button>
+												</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<hr>
+					</form>
+				</div>
+			</div>
+		</div>
+		<script src="/jquery-3.0.0.js"></script>
+	</body>
+<script type="text/javascript">
+  function UserDelect(id) {
+    $.ajax({
+		url:"delectUser",
+		async:false,
+		data:{
+			id:id
+		},
+		success:function (data) {
+			alert("删除成功！");
+             window.location.reload();
+		},
+		error:function (data) {
+			alert("失败！");
+		}
+	});
+  }
+</script>
+</html>

@@ -1,0 +1,608 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+          integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>高校兼职平台</title>
+</head>
+<body>
+
+<style>
+    .tooltip-inner {
+
+        background-color: red;
+        width: 100%;
+        max-width: 100%;
+
+    }
+
+    .tooltip.top .tooltip-arrow {
+
+        border-top-color: red;
+
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+    <div style="width: 130px"></div>
+    <a class="navbar-brand" href="/">
+        <img src="/img/2.png" width="30" height="30" class="d-inline-block align-top" alt="">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#"><h4>高校兼职</h4> <span class="sr-only">(current)</span></a>
+            </li>
+
+            <li id="li1" style="display:none">
+                <div><i class="fas fa-user-tie"></i></div>
+            </li>
+            <li class="nav-item dropdown" id="li2" style="display: none">
+                <a class="nav-link dropdown-toggle" href="#" id="User" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                </a>
+                <div class="dropdown-menu" aria-labelledby="User">
+                    <a class="dropdown-item" href="/set_company">个人中心</a>
+                    <a class="dropdown-item" href="/user_set">帐号设置</a>
+                <!--    <a class="dropdown-item" href="#" id="trans_identity" onclick="trans_identity()"
+                       data-toggle="tooltip" data-placement="right" title="为了更好的展示效果，用户身份可以随意切换"></a>-->
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">退出</a>
+                </div>
+            </li>
+
+
+            <li class="nav-item">
+                <div id="login_top" style="display: none">
+                    <button type="button" id="" class="btn btn-info" data-toggle="modal" data-target="#login"
+                            style="position: absolute;right: 200px" onclick="clear_user()">登录
+                    </button>
+                    <button type="button" class="btn btn-info" style="position: absolute;right: 130px"
+                            data-toggle="modal" data-target="#register" onclick="clear_register()">注册
+                    </button>
+                </div>
+                <div id="login_down" style="display: none">
+                    <a href="#" style="position: absolute;right: 130px;top:30px;color:black"
+                       onclick="delectCookie()">退出</a>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+
+
+<div class="modal fade bd-example-modal-sm" id="login">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+
+            <!-- 模态框头部 -->
+            <div class="modal-header">
+                <h6 class="modal-title">用户登录</h6>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- 模态框主体 -->
+            <div class="modal-body">
+                <div class="input-group mb-3 input-group-sm">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">邮箱：</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="请输入邮箱" id="email">
+                </div>
+
+
+                <div class="input-group mb-3 input-group-sm">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">密码：</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="请输入密码" id="password">
+                </div>
+
+
+                <div class="alert alert-danger" id="hide" role="alert" style="display: none">
+                    <button type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-sort-by-order-alt"></span>
+                    </button>
+                    <font size="2" color="red" id="error_prompt"></font>
+                </div>
+            </div>
+
+            <!-- 模态框底部 -->
+            <div class="modal-footer">
+
+                <div style="position:absolute;left: 10px">
+                    <a href="#"> <font size="2" color="blue" onclick="test()">立即注册</font></a>
+                </div>
+                <span>
+          <div>
+           <a href="/forget_email"> <font size="2" color="blue">忘记密码？</font></a>
+          </div>
+        </span>
+                <button type="button" class="btn btn-primary" onclick="login()">登录</button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!--注册页面-->
+<div class="modal fade bd-example-modal-sm" id="register">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+
+            <!-- 模态框头部 -->
+            <div class="modal-header">
+                <h6 class="modal-title">用户注册</h6>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- 模态框主体 -->
+            <div class="modal-body">
+                <div class="input-group mb-3 input-group-sm">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">用户：</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="请输入用户名" data-toggle="tooltip"
+                           data-placement="right" title="请填写真实姓名" id="re_username">
+                </div>
+
+
+                <div class="input-group mb-3 input-group-sm">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">密码：</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="请输入密码" id="re_password">
+                </div>
+
+                <div class="input-group mb-3 input-group-sm">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">邮箱：</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="请输入正确邮箱" id="re_email" data-toggle="tooltip"
+                           data-placement="right" title="邮箱是找回密码唯一凭证，请认真填写">
+                </div>
+
+                <div class="input-group mb-3 input-group-sm">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" style="height: 35px">身份：</span>
+                    </div>
+                    <div class="btn-group" data-toggle="buttons" style="height: 43px">
+                        <label class="btn btn-light">
+                            <input type="radio" name="options" id="option1" value="0" autocomplete="off"
+                                   style="width: 30px"> 学生
+                        </label>
+                        <label class="btn btn-light">
+                            <input type="radio" name="options" id="option2" value="1" autocomplete="off"> 企业/商家
+                        </label>
+                    </div>
+                </div>
+
+                <div class="alert alert-danger" id="re_hide" role="alert" style="display: none">
+                    <button type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-sort-by-order-alt"></span>
+                    </button>
+                    <font size="2" color="red" id="re_error_prompt"></font>
+                </div>
+            </div>
+
+            <!-- 模态框底部 -->
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-primary" onclick="register()">注册</button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+
+
+<!--<div onclick="test4()"><h2>ddddd</h2></div>
+<div style="display: none" id="test4">我是隐藏的</div>-->
+
+<div class="ul_class">
+    <ul class="ul_1" id="city_display">
+        <li class="li_diqu"><h6>地区：</h6></li>
+    </ul>
+</div>
+
+
+<div class="alert alert-success" role="alert">
+    <span><i class="fas fa-baby"></i></span>
+    <span>
+    <input type="text" class="mytxt" id="search_id" placeholder="搜索">
+  </span>
+    <span><a href="#" onclick="search_id()"><i class="fas fa-search"></i></a></span>
+</div>
+<div style="position:absolute;height: 100%;width: 100%;">
+    <!--<div style="border: solid red 1px;position: absolute;width: 20%;height: 500px"></div>-->
+    <div style="position: absolute;width: 64%;left: 18%;float: left;border-left: solid #cccccc 1px;border-right:solid #cccccc 1px;padding: 3px 55px">
+        <br>
+        <div class="list-group" id="recruit_group">
+
+
+        </div>
+        <br>
+        <nav id="select_pn" aria-label="Page navigation example" style="float: right">
+            <!-- <ul class="pagination">
+               <li class="page-item">
+                 <a class="page-link" href="#" aria-label="Previous">
+                   <span aria-hidden="true">&laquo;</span>
+                   <span class="sr-only">Previous</span>
+                 </a>
+               </li>
+               <li class="page-item"><a class="page-link" href="#" th:if="1<0" >1</a></li>
+               <li class="page-item"><a class="page-link" href="#" >2</a></li>
+               <li class="page-item"><a class="page-link" href="#" >3</a></li>
+               <li class="page-item">
+                 <a class="page-link" href="#" aria-label="Next">
+                   <span aria-hidden="true">&raquo;</span>
+                   <span class="sr-only">Next</span>
+                 </a>
+               </li>
+             </ul>-->
+
+        </nav>
+    </div>
+</div>
+
+
+<!--<div style="border: solid red 1px;position: absolute;width: 20%;height: 500px;right: 1px"></div>-->
+</div>
+<script src="/jquery-3.0.0.js"></script>
+<script src="/myJS.js"></script>
+<!--  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+ -->
+<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+<script type="text/javascript">
+    $(function () {
+       /* if (getCookie("identity") == "1") {
+            document.getElementById("trans_identity").innerText = "身份（企业）";
+        }
+        if (getCookie("identity") == "0") {
+            document.getElementById("trans_identity").innerText = "身份（学生）";
+        }
+*/
+        if (getCookie("username") != "") {
+            document.getElementById("login_top").style.display = "none";
+            document.getElementById("login_down").style.display = "";
+            document.getElementById("li1").style.display = "";
+            document.getElementById("li2").style.display = "";
+        } else {
+            document.getElementById("login_top").style.display = "";
+            document.getElementById("login_down").style.display = "none";
+            document.getElementById("li1").style.display = "none";
+            document.getElementById("li2").style.display = "none";
+        }
+        document.getElementById("User").innerText = getCookie("username");
+
+        select_recruit(1);
+        city_display();
+
+    });
+
+    function select_recruit(pn) {
+        var company;
+        $.ajax({
+            url: "select_recruit",
+            type: "post",
+            data: {
+                pn: pn
+            },
+            success: function (data) {
+                document.getElementById("recruit_group").innerHTML = "";
+                document.getElementById("select_pn").innerHTML = "";
+                var timenow = new Date();
+                for (var i = 0; i < data.list.length; i++) {
+
+                    $.ajax({
+                        url: "findUserById",
+                        async: false,
+                        data: {
+                            id: data.list[i].uid
+                        },
+                        success: function (data) {
+                            company = data.company;
+                        }
+                    });
+
+                    var creattime = Date.parse(data.list[i].creat_time);
+                    var day = Math.floor((timenow - creattime) / (24 * 3600 * 1000));
+                    $("#recruit_group").append("    <br>\n" +
+                        "    <a href=\"select_recruitById?id=" + data.list[i].id + "\" class=\"list-group-item list-group-item-action flex-column align-items-start\">\n" +
+                        "      <div class=\"d-flex w-100 justify-content-between\">\n" +
+                        "        <h5 class=\"mb-1\">" + data.list[i].title + "</h5>\n" +
+                        "<br/>\n" +
+                        "        <small class=\"text-muted\"><span style='color: red'>" + day + "</span>天前</small>\n" +
+                        "      </div>\n" +
+                        "      <p class=\"mb-1\"><span style='margin: 0 200px 0 0'>工作地点：" + data.list[i].location + "</span>工作时间：" + data.list[i].work_time + "</p>\n" +
+                        "      <p class=\"mb-1\"><span style='margin: 0 200px 0 0'>招聘人数：" + data.list[i].num + "人</span>薪资：" + data.list[i].salary + "</p>\n" +
+                        "      <small class=\"text-muted\">公司：" + company + "</small>\n" +
+                        "    </a>")
+                }
+                $("#select_pn").append("<ul class=\"pagination\">\n" +
+                    "      <li class=\"page-item\">\n" +
+                    "        <a class=\"page-link\" href=\"#\"  onclick='select_recruit(" + (data.pageNum - 1) + ")' aria-label=\"Previous\">\n" +
+                    "          <span aria-hidden=\"true\">&laquo;</span>\n" +
+                    "          <span class=\"sr-only\">Previous</span>\n" +
+                    "        </a>\n" +
+                    "      </li>\n" +
+                    "      <li id='li_pn1' class=\"page-item\"><a class=\"page-link\"  href=\"#\" onclick=\"select_recruit(" + (data.pageNum - 1) + ")\">" + (data.pageNum - 1) + "</a></li>\n" +
+                    "      <li class=\"page-item disabled\"><a class=\"page-link\" tabindex=\"-1\" href=\"#\" onclick=\"select_recruit(" + data.pageNum + ")\">" + data.pageNum + "</a></li>\n" +
+                    "      <li id='li_pn2' class=\"page-item\"><a class=\"page-link\" href=\"#\" onclick=\"select_recruit(" + (data.pageNum + 1) + ")\">" + (data.pageNum + 1) + "</a></li>\n" +
+                    "      <li class=\"page-item\">\n" +
+                    "        <a class=\"page-link\" href=\"#\" onclick='select_recruit(" + (data.pageNum + 1) + ")' aria-label=\"Next\">\n" +
+                    "          <span aria-hidden=\"true\">&raquo;</span>\n" +
+                    "          <span class=\"sr-only\">Next</span>\n" +
+                    "        </a>\n" +
+                    "      </li>\n" +
+                    "    </ul>");
+                if (data.pageNum == 1) {
+                    document.getElementById("li_pn1").style.display = "none";
+                }
+                if (data.pageNum == data.pages) {
+                    document.getElementById("li_pn2").style.display = "none";
+                }
+            }
+        })
+    }
+
+    function test1() {
+        var re_identity = $("input[type=radio]:checked").val();
+        if (re_identity == null) alert("1111");
+    }
+
+    function register() {
+        var re_hide = document.getElementById("re_hide");
+        var re_error_prompt = document.getElementById("re_error_prompt");
+        var re_username = $("#re_username").val();
+        var re_password = $("#re_password").val();
+        var re_email = $("#re_email").val();
+        var re_identity = $("input[type=radio]:checked").val();
+        if (re_username == "" || re_password == "" || re_email == "" || re_identity == null) {
+            re_error_prompt.innerText = "用户/密码/邮箱/身份不能为空！";
+            re_hide.style.display = "";
+        } else {
+            $.ajax({
+                url: "register",
+                data: {
+                    re_username: re_username,
+                    re_password: re_password,
+                    re_email: re_email,
+                    re_identity: re_identity
+                },
+                success: function (data) {
+                    if (data == "error1") {
+                        re_error_prompt.innerText = "该邮箱已注册！";
+                        re_hide.style.display = "";
+                    } else if (data == "error2") {
+                        re_error_prompt.innerText = "注册失败！请重新尝试";
+                        re_hide.style.display = "";
+                    } else location.href = "/register_success.html";
+                }
+            })
+        }
+
+    }
+
+    function delectCookie() {
+        cookie.delete("username");
+        cookie.delete("password");
+        cookie.delete("id");
+        location.reload();
+    }
+
+    var cookie = {
+        set: function (key, val, time) {//设置cookie方法
+            var date = new Date(); //获取当前时间
+            var expiresDays = time;  //将date设置为n天以后的时间
+            date.setTime(date.getTime() + expiresDays * 24 * 3600 * 1000); //格式化为cookie识别的时间
+            document.cookie = key + "=" + val + ";expires=" + date.toGMTString();  //设置cookie
+        },
+        get: function (key) {//获取cookie方法
+            /*获取cookie参数*/
+            var getCookie = document.cookie.replace(/[ ]/g, "");  //获取cookie，并且将获得的cookie格式化，去掉空格字符
+            var arrCookie = getCookie.split(";")  //将获得的cookie以"分号"为标识 将cookie保存到arrCookie的数组中
+            var tips;  //声明变量tips
+            for (var i = 0; i < arrCookie.length; i++) {   //使用for循环查找cookie中的tips变量
+                var arr = arrCookie[i].split("=");   //将单条cookie用"等号"为标识，将单条cookie保存为arr数组
+                if (key == arr[0]) {  //匹配变量名称，其中arr[0]是指的cookie名称，如果该条变量为tips则执行判断语句中的赋值操作
+                    tips = arr[1];   //将cookie的值赋给变量tips
+                    break;   //终止for循环遍历
+                }
+                return tips;
+            }
+        },
+        delete: function (key) { //删除cookie方法
+            var date = new Date(); //获取当前时间
+            date.setTime(date.getTime() - 10000); //将date设置为过去的时间
+            document.cookie = key + "=v; expires =" + date.toGMTString();//设置cookie
+        }
+    }
+
+    function trans_identity() {
+        var identity = getCookie("identity");
+        if (identity == "1") {
+            document.cookie = "identity=0;";
+        } else document.cookie = "identity=1;";
+        location.reload();
+    }
+
+    function test4() {
+        var test = document.getElementById("test4");
+        test.style.display = (test.style.display == "none") ? "block" : "none";
+    }
+
+    function city_display() {
+        $.ajax({
+            url: "city_display",
+            success: function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $("#city_display").append("<li><a onclick='school_display(" + data[i].id + ")'  href=\"#\">" + data[i].city + "</a></li>")
+                }
+            }
+        })
+    }
+
+    function school_display(id, pn) {
+        $.ajax({
+            url: "select_recruitByCity",
+            data: {
+                city_id: id,
+                pn: pn
+            },
+            success: function (data) {
+                document.getElementById("recruit_group").innerHTML = "";
+                document.getElementById("select_pn").innerHTML = "";
+                var timenow = new Date();
+                for (var i = 0; i < data.list.length; i++) {
+
+                    $.ajax({
+                        url: "findUserById",
+                        async: false,
+                        data: {
+                            id: data.list[i].uid
+                        },
+                        success: function (data) {
+                            company = data.company;
+                        }
+                    });
+
+                    var creattime = Date.parse(data.list[i].creat_time);
+                    var day = Math.floor((timenow - creattime) / (24 * 3600 * 1000));
+                    $("#recruit_group").append("    <br>\n" +
+                        "    <a href=\"select_recruitById?id=" + data.list[i].id + "\" class=\"list-group-item list-group-item-action flex-column align-items-start\">\n" +
+                        "      <div class=\"d-flex w-100 justify-content-between\">\n" +
+                        "        <h5 class=\"mb-1\">" + data.list[i].title + "</h5>\n" +
+                        "<br/>\n" +
+                        "        <small class=\"text-muted\"><span style='color: red'>" + day + "</span>天前</small>\n" +
+                        "      </div>\n" +
+                        "      <p class=\"mb-1\"><span style='margin: 0 200px 0 0'>工作地点：" + data.list[i].location + "</span>工作时间：" + data.list[i].work_time + "</p>\n" +
+                        "      <p class=\"mb-1\"><span style='margin: 0 200px 0 0'>招聘人数：" + data.list[i].num + "人</span>薪资：" + data.list[i].salary + "</p>\n" +
+                        "      <small class=\"text-muted\">公司：" + company + "</small>\n" +
+                        "    </a>")
+                }
+                $("#select_pn").append("<ul class=\"pagination\">\n" +
+                    "      <li class=\"page-item\">\n" +
+                    "        <a class=\"page-link\" href=\"#\"  onclick='search_id(" + (data.pageNum - 1) + ")' aria-label=\"Previous\">\n" +
+                    "          <span aria-hidden=\"true\">&laquo;</span>\n" +
+                    "          <span class=\"sr-only\">Previous</span>\n" +
+                    "        </a>\n" +
+                    "      </li>\n" +
+                    "      <li id='li_pn5' class=\"page-item\"><a class=\"page-link\"  href=\"#\" onclick=\"search_id(" + (data.pageNum - 1) + ")\">" + (data.pageNum - 1) + "</a></li>\n" +
+                    "      <li class=\"page-item disabled\"><a class=\"page-link\" tabindex=\"-1\" href=\"#\" onclick=\"search_id(" + data.pageNum + ")\">" + data.pageNum + "</a></li>\n" +
+                    "      <li id='li_pn6' class=\"page-item\"><a class=\"page-link\" href=\"#\" onclick=\"search_id(" + (data.pageNum + 1) + ")\">" + (data.pageNum + 1) + "</a></li>\n" +
+                    "      <li class=\"page-item\">\n" +
+                    "        <a class=\"page-link\" href=\"#\" onclick='search_id(" + (data.pageNum + 1) + ")' aria-label=\"Next\">\n" +
+                    "          <span aria-hidden=\"true\">&raquo;</span>\n" +
+                    "          <span class=\"sr-only\">Next</span>\n" +
+                    "        </a>\n" +
+                    "      </li>\n" +
+                    "    </ul>");
+                if (data.pageNum == 1) {
+                    document.getElementById("li_pn5").style.display = "none";
+                }
+                if (data.pageNum == data.pages) {
+                    document.getElementById("li_pn6").style.display = "none";
+                }
+            }
+        })
+
+    }
+
+    function testtip() {
+        $("#testtip").attr("data-original-title", "22222222222").tooltip('show').focus();
+    }
+
+    function search_id(pn) {
+        var search_id = $("#search_id").val();
+        $.ajax({
+            url: "select_recruitBySearch",
+            data: {
+                pn: pn,
+                search_id: search_id
+            },
+            success: function (data) {
+                document.getElementById("recruit_group").innerHTML = "";
+                document.getElementById("select_pn").innerHTML = "";
+                var timenow = new Date();
+                for (var i = 0; i < data.list.length; i++) {
+
+                    $.ajax({
+                        url: "findUserById",
+                        async: false,
+                        data: {
+                            id: data.list[i].uid
+                        },
+                        success: function (data) {
+                            company = data.company;
+                        }
+                    });
+
+                    var creattime = Date.parse(data.list[i].creat_time);
+                    var day = Math.floor((timenow - creattime) / (24 * 3600 * 1000));
+                    $("#recruit_group").append("    <br>\n" +
+                        "    <a href=\"select_recruitById?id=" + data.list[i].id + "\" class=\"list-group-item list-group-item-action flex-column align-items-start\">\n" +
+                        "      <div class=\"d-flex w-100 justify-content-between\">\n" +
+                        "        <h5 class=\"mb-1\">" + data.list[i].title + "</h5>\n" +
+                        "<br/>\n" +
+                        "        <small class=\"text-muted\"><span style='color: red'>" + day + "</span>天前</small>\n" +
+                        "      </div>\n" +
+                        "      <p class=\"mb-1\"><span style='margin: 0 200px 0 0'>工作地点：" + data.list[i].location + "</span>工作时间：" + data.list[i].work_time + "</p>\n" +
+                        "      <p class=\"mb-1\"><span style='margin: 0 200px 0 0'>招聘人数：" + data.list[i].num + "人</span>薪资：" + data.list[i].salary + "</p>\n" +
+                        "      <small class=\"text-muted\">公司：" + company + "</small>\n" +
+                        "    </a>")
+                }
+                $("#select_pn").append("<ul class=\"pagination\">\n" +
+                    "      <li class=\"page-item\">\n" +
+                    "        <a class=\"page-link\" href=\"#\"  onclick='search_id(" + (data.pageNum - 1) + ")' aria-label=\"Previous\">\n" +
+                    "          <span aria-hidden=\"true\">&laquo;</span>\n" +
+                    "          <span class=\"sr-only\">Previous</span>\n" +
+                    "        </a>\n" +
+                    "      </li>\n" +
+                    "      <li id='li_pn3' class=\"page-item\"><a class=\"page-link\"  href=\"#\" onclick=\"search_id(" + (data.pageNum - 1) + ")\">" + (data.pageNum - 1) + "</a></li>\n" +
+                    "      <li class=\"page-item disabled\"><a class=\"page-link\" tabindex=\"-1\" href=\"#\" onclick=\"search_id(" + data.pageNum + ")\">" + data.pageNum + "</a></li>\n" +
+                    "      <li id='li_pn4' class=\"page-item\"><a class=\"page-link\" href=\"#\" onclick=\"search_id(" + (data.pageNum + 1) + ")\">" + (data.pageNum + 1) + "</a></li>\n" +
+                    "      <li class=\"page-item\">\n" +
+                    "        <a class=\"page-link\" href=\"#\" onclick='search_id(" + (data.pageNum + 1) + ")' aria-label=\"Next\">\n" +
+                    "          <span aria-hidden=\"true\">&raquo;</span>\n" +
+                    "          <span class=\"sr-only\">Next</span>\n" +
+                    "        </a>\n" +
+                    "      </li>\n" +
+                    "    </ul>");
+                if (data.pageNum == 1) {
+                    document.getElementById("li_pn3").style.display = "none";
+                }
+                if (data.pageNum == data.pages) {
+                    document.getElementById("li_pn4").style.display = "none";
+                }
+            }
+        })
+    }
+</script>
+</html>

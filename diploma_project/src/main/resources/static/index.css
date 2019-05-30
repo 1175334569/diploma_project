@@ -1,0 +1,26 @@
+.tooltip-inner{
+
+    background-color: red;
+
+
+}
+
+.tooltip.top .tooltip-arrow{
+
+    border-top-color: red;
+
+}
+.ul_1 li{
+    float: left;
+    list-style: none;
+    margin: 0 30px;
+    font-size:12px;
+}
+.ul_class{
+    width: 100%;
+    height:70px;
+
+}
+.li_diqu{
+    height:70px;
+}

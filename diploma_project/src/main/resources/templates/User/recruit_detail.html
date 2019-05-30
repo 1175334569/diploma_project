@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>高校兼职平台</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/recruit_detail.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+ <style>
+     input{
+         border: 1px solid #ccc;
+         padding: 7px 0px;
+         border-radius: 3px;
+         padding-left:5px;
+         -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+         box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+         -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+         -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+         transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s
+     }
+     input:focus{
+         border-color: #66afe9;
+         outline: 0;
+         -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+         box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
+     }
+ </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+    <div style="width: 130px"></div>
+    <a class="navbar-brand" href="/">
+        <img src="/img/2.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        高校兼职
+    </a>
+    <div style="width: 30px"></div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li id="li1" style="display:none">
+                <div><i class="fas fa-user-tie"></i></div>
+            </li>
+            <li class="nav-item dropdown" id="li2" style="display: none">
+                <a class="nav-link dropdown-toggle" href="#" id="User" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                </a>
+                <div class="dropdown-menu" aria-labelledby="User">
+                    <a class="dropdown-item"  href="/set_company">个人中心</a>
+                    <a class="dropdown-item"  href="/user_set" >帐号设置</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">退出</a>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+<div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div style="position: absolute;width: 64%;left: 18%;float: left;border-left: solid black 1px;border-right:solid black 1px;padding: 3px 55px">
+        <div class="title1">
+            <h2 th:text="${Recruit.title}">55555</h2>
+        </div>
+
+        <br/>
+        <div style="width: 50%; float: left" class="tic">薪资：<span style="color: cadetblue" th:text="${Recruit.salary}"></span></div>
+        <div style="float: right;width: 50%">招聘人数：<span style="color: cadetblue" th:text="${Recruit.num}"></span></div>
+
+        <br/>
+        <div style="width: 50%; float: left" class="tic">工作时间：<span style="color: cadetblue" th:text="${Recruit.work_time}"></span></div>
+        <div style="float: right;width: 50%">工作地点：<span style="color: cadetblue" th:text="${Recruit.location}"></span></div>
+        <br/>
+        <div style="width: 50%; float: left" class="tic">招聘性别：<span style="color: cadetblue" th:text="${Recruit.re_sex}"></span></div>
+        <div style="float: right;width: 50%">招聘范围：<span style="color: cadetblue" th:text="${Recruit.city}"></span></div>
+        <br/>
+
+       <br/>
+        <br/>
+        <br/>
+        <div>公司：<span th:text="${User.company}"></span></div>
+            <div data-toggle="modal" data-target="#exampleModalCenter" onclick="baiduMap()">
+                地址：<i data-toggle="modal" data-target="#exampleModalCenter" class="fas fa-map-marker-alt" style="color: red"></i><span><a href="#" id="address1" th:text="${User.address}"></a></span>
+            </div>
+        <br/>
+        <br/>
+        <div>工作详情：<span th:text="${Recruit.content}"></span></div>
+        <br/>
+        <br/>
+        <input id="recruit_id" th:value="${Recruit.id}" style="display: none">
+        <button id="button1" value="提交" class="btn btn-success" onclick="recruit_detail()">立即申请</button>
+        <button id="button2"  value="提交" class="btn btn-secondary"style="display: none">已申请</button>
+    </div>
+
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">地址</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body ">
+                <div id="searchResultPanel1" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none"></div>
+                <div style="width:600px;height:480px;border:1px solid gray;margin:30px auto" id="container1"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=cPGwitKU1hWewR3dtn7reoP4l0VGlUHY"></script>
+     <script src="/jquery-3.0.0.js"></script>
+     <script src="/myJS.js"></script>
+     <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+     <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+<script>
+    $(function () {
+        if(getCookie("username")!=""){
+            document.getElementById("li1").style.display="";
+            document.getElementById("li2").style.display="";
+        }
+        else {
+            document.getElementById("li1").style.display="none";
+            document.getElementById("li2").style.display="none";
+        }
+        document.getElementById("User").innerText=getCookie("username");
+
+        var recruit_id=$("#recruit_id").val();
+        if(getCookie("id")!=""){
+            var uid=getCookie("id");
+            $.ajax({
+                url:"deliver_recruitOrNot",
+                data:{
+                    recruit_id:recruit_id,
+                    uid:uid
+                },
+                success:function (data) {
+                    if(data==true){
+                        document.getElementById("button1").style.display="none";
+                        document.getElementById("button2").style.display="";
+                    }
+                 }
+            })
+        }
+    });
+    function recruit_detail() {
+        var recruit_id=$("#recruit_id").val();
+       if(getCookie("id")=="") alert("申请失败！");
+       else if(getCookie("identity")!=="0") alert("申请失败！");
+        else{
+            var uid=getCookie("id");
+            $.ajax({
+                url:"recruit_student",
+                data:{
+                    recruit_id:recruit_id,
+                    uid:uid
+                },
+                success:function (data) {
+                    alert("申请成功！");
+                    location.reload();
+                }
+            })
+       }
+    }
+
+    var map = new BMap.Map("container1");
+    var point = new BMap.Point(114.02597366,22.54605355);
+    map.centerAndZoom(point,12);
+    // 创建地址解析器实例
+    var myGeo = new BMap.Geocoder();
+    // 将地址解析结果显示在地图上,并调整地图视野
+    myGeo.getPoint("北京市海淀区上地10街", function(point){
+        if (point) {
+            map.centerAndZoom(point, 16);
+            map.addOverlay(new BMap.Marker(point));
+            map.enableScrollWheelZoom(true);
+        }else{
+            alert("您选择地址没有解析到结果!");
+        }
+    }, "中山市");
+
+    var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
+        {"location" : map
+        });
+
+    ac.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
+        var str = "";
+        var _value = e.fromitem.value;
+        var value = "";
+        if (e.fromitem.index > -1) {
+            value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+        }
+        str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+
+        value = "";
+        if (e.toitem.index > -1) {
+            _value = e.toitem.value;
+            value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+        }
+        str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+        document.getElementById("searchResultPanel1").innerHTML = str;
+    });
+
+    var myValue;
+    ac.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
+        var _value = e.item.value;
+        myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+        document.getElementById("searchResultPanel1").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+
+        setPlace();
+    });
+
+    function setPlace(){
+        map.clearOverlays();    //清除地图上所有覆盖物
+        function myFun(){
+            var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+            map.centerAndZoom(pp, 18);
+            map.addOverlay(new BMap.Marker(pp));    //添加标注
+        }
+        var local = new BMap.LocalSearch(map, { //智能搜索
+            onSearchComplete: myFun
+        });
+        local.search(myValue);
+    }
+
+    /* ===================================================================*/
+
+    function baiduMap() {
+        myValue=document.getElementById("address1").text;
+        setPlace();
+    }
+
+
+</script>
+</html>

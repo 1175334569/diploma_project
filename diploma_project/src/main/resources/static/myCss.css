@@ -1,0 +1,81 @@
+
+/*个人设置/消息顶部*/
+#bodycontent { position: relative; width: 100%; min-height: 100%; }
+.ct-holder { padding-bottom:85px; }
+.wrap, .f-head, .f-foot, .f-friendlink{ width: 920px; margin: 0 auto; text-align: left; }
+.wrap { min-height:420px; overflow:hidden; }
+.account { margin-top:50px; }
+.account .main { margin-top:50px; text-align:left; }
+.account .main .right { float: left;  padding-bottom:45px; padding-right:139px; }
+.account .main .right .form { float:left; color:#666; }
+.account .main .right .form textarea { width: 400px; height: 95px; border-radius: 5px; border: 2px solid #E0E0E0; padding: 10px; line-height:20px; }
+.group-left { float: left; width: 436px; }
+.group-right { float: left; width: 218px; }
+.account .main .right .form .inputtext { width:400px; padding-left:10px; padding-top:12px; padding-bottom:12px; }
+.account .main .right .form .inputtext[disabled] { cursor:default; color:#666; background:#e8e8e8; border-color:#e8e8e8; }
+.account .main .right .form .leftsign { font-size:14px; font-weight:bold; }
+.account .main .right .form .note { color:#ccc; text-align:right; }
+.clearfix { *zoom:1;
+}
+.clearfix:after { visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
+.setting-top { position: relative; padding-left: 43px; border-bottom:1px solid #F0F0F0; }
+.setting-top ul { position: relative; top: 1px; overflow: hidden; _zoom: 1; }
+.setting-top ul li { display: inline; float: left; padding: 10px 20px 10px 20px; font-size:14px; margin-right:15px; margin-left:5px; }
+.setting-top ul li.current { background: white; border: 1px #E4E4E4 solid; border-bottom: none; font-weight:bold; }
+.setting-top ul li a { float: left; color: #727272; }
+.setting-top ul .settings { position:absolute; font-size:18px; font-weight:normal; right:20px; bottom:10px; }
+
+/*输入框样式*/
+.mytxt {
+    color:#333;
+    line-height:normal;
+    font-style:normal;
+    font-variant:normal;
+    font-size-adjust:none;
+    font-stretch:normal;
+    font-weight:normal;
+    margin-top:0px;
+    margin-bottom:0px;
+    margin-left:2px;
+    padding-top:4px;
+    padding-right:4px;
+    padding-bottom:4px;
+    padding-left:4px;
+    font-size:15px;
+    outline-width:medium;
+    outline-style:none;
+    outline-color:invert;
+    border-top-left-radius:3px;
+    border-top-right-radius:3px;
+    border-bottom-left-radius:3px;
+    border-bottom-right-radius:3px;
+    text-shadow:1px 1px 2px #fff;
+    background-attachment:scroll;
+    background-repeat:repeat-x;
+    background-position-x:left;
+    background-position-y:top;
+    background-size:auto;
+    background-origin:padding-box;
+    background-clip:border-box;
+    background-color:rgb(255,255,255);
+    margin-right:8px;
+    border-top-color:#ccc;
+    border-right-color:#ccc;
+    border-bottom-color:#ccc;
+    border-left-color:#ccc;
+    border-top-width:1px;
+    border-right-width:1px;
+    border-bottom-width:1px;
+    border-left-width:1px;
+    border-top-style:solid;
+    border-right-style:solid;
+    border-bottom-style:solid;
+    border-left-style:solid;
+}
+.mytxt:focus {
+    border: 2px solid #fafafa;
+    -webkit-box-shadow: 0px 0px 6px #007eff;
+    -moz-box-shadow: 0px 0px 5px #007eff;
+    box-shadow: 0px 0px 5px #007eff;
+
+}
